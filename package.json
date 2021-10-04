@@ -1,0 +1,8 @@
+{
+  "name": "kubernetes-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mplibunao/kubernetes-node.git",
+  "author": "MP <markpaololibunao@gmail.com>",
+  "license": "MIT"
+}
