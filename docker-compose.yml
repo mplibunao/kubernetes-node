@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - db_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+volumes:
+  db_data:
