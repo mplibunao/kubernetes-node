@@ -1,3 +1,3 @@
 #!/bin/bash
 
-rsync -a ../kubernetes-node k8lab:/home/mp
+rsync -a --exclude=node_modules --delete ../kubernetes-node k8lab:/home/mp
