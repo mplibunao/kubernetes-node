@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    command: ['./wait-for.sh', 'db:27017', '--', 'yarn', 'start']
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - db
+
+  db:
+    restart: unless-stopped
+    env_file:
+      - .env

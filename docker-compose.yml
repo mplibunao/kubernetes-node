@@ -1,33 +1,22 @@
-version: '3'
 services:
   web:
-    build: .
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    image: mplibunao/kubernetes_node
+    restart: always
     env_file:
       - .env
     ports:
       - "80:8080"
-    volumes:
-      - .:/home/node/app
     networks:
       - app-network
-    depends_on:
-      - db
-    command: ['./wait-for.sh', 'db:27017', '--', 'yarn', 'start']
 
   db:
-    image: mongo:latest
-    container_name: db
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
-    env_file:
-      - .env
+    image: mongo:5.0.3
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
     volumes:
       - db_data:/data/db
-    ports:
-      - "27017:27017"
     networks:
       - app-network
 
