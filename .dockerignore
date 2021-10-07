@@ -6,3 +6,5 @@ sync.sh
 Dockerfile
 .git
 .gitignore
+.env
+

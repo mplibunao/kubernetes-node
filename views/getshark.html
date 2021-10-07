@@ -42,7 +42,7 @@ class="nav-link">Sharks</a>
 </div> 
 <div class="container"> 
     <div class="row"> 
-        <div class="col-lg-6"> 
+        <div class="col-lg-4"> 
             <p> 
                 <div class="caption">Some sharks are known to be 
 dangerous to humans, though many more are not. The sawshark, for 
@@ -53,7 +53,7 @@ src="https://assets.digitalocean.com/articles/docker_node_image/saw
 shark.jpg" alt="Sawshark">
             </p> 
         </div> 
-        <div class="col-lg-6"> 
+        <div class="col-lg-4"> 
             <p> 
                 <div class="caption">Other sharks are known to be 
 friendly and welcoming!</div> 
@@ -62,6 +62,17 @@ src="https://assets.digitalocean.com/articles/docker_node_image/sam
 my.png" alt="Sammy the Shark"> 
             </p> 
         </div> 
+        <div class="col-lg-4"> 
+           <p> 
+              <div class="caption">Your Sharks</div> 
+                  <ul> 
+                     <% sharks.forEach(function(shark) { %> 
+                        <p>Name: <%= shark.name %></p> 
+                        <p>Character: <%= shark.character %></p> 
+                     <% }); %> 
+                  </ul> 
+            </p> 
+        </div>
     </div> 
 </div> 
  
