@@ -1,10 +1,22 @@
+# node_modules
 node_modules
+
+# npm/yarn logs
 npm-debug.log
 yarn-error.log
+
+# Build artifacts
 .dockerignore
-sync.sh
 Dockerfile
+
+# Dev stuff
 .git
 .gitignore
 .env
+.env.example
+docker-compose.yml
+docker-compose.override.yml
+docker-compose.override.yml.example
 
+
+sync.sh
