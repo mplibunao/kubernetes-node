@@ -1,9 +1,16 @@
+version: '3'
 services:
   web:
     image: mplibunao/kubernetes_node
     restart: always
     env_file:
       - .env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
     ports:
       - "80:8080"
     networks:
