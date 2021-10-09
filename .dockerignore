@@ -18,5 +18,7 @@ docker-compose.yml
 docker-compose.override.yml
 docker-compose.override.yml.example
 
-
+# Scripts
 sync.sh
+wait-for.sh
+push.sh

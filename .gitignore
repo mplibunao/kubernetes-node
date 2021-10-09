@@ -5,7 +5,11 @@ node_modules
 npm-debug.log
 yarn-error.log
 
+
 # other artifacts
+docker-compose.override.yml
+
+# secrets
 .env
 secret.yaml
-docker-compose.override.yml
+key.txt
