@@ -22,13 +22,22 @@ spec:
         kompose.version: 1.24.0 (HEAD)
       creationTimestamp: null
       labels:
-        io.kompose.network/app-network: "true"
+        #name: db
+        #io.kompose.network/app-network: "true"
         io.kompose.service: db
     spec:
       containers:
         - env:
             - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_PASSWORD
             - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO_USERNAME
           image: mongo:5.0.3
           name: db
           resources: {}

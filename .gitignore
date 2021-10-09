@@ -7,4 +7,5 @@ yarn-error.log
 
 # other artifacts
 .env
+secret.yaml
 docker-compose.override.yml
