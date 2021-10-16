@@ -1,0 +1,66 @@
+services:
+  web:
+    build: .
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    #ports:
+      #- "80:8080"
+    networks:
+      - app-network
+
+  db:
+    image: mongo:5.0.3
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - db_data:/data/db
+    networks:
+      - app-network
+
+  webserver:
+    image: nginx:1.21.3-alpine
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    ports:
+      - "80:80"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - web
+    networks:
+      - app-network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    #command: ['certonly', '--webroot', '--webroot-path=/var/www/html', '--email', 'markpaololibunao@gmail.com', '--agree-tos', '--no-eff-email', '--staging', '-d', 'mplibunao.me', '-d', 'www.mplibunao.me']
+    command: ['certonly', '--webroot', '--webroot-path=/var/www/html', '--email', 'markpaololibunao@gmail.com', '--agree-tos', '--no-eff-email', '--force-renewal', '-d', 'mplibunao.me', '-d', 'www.mplibunao.me']
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mp/kubernetes-node/views/
+      o: bind
