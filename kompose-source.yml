@@ -1,7 +1,10 @@
+version: '3'
 services:
   web:
     image: mplibunao/kubernetes-node
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    restart: always
+    env_file:
+      - .env
     environment:
       - MONGO_USERNAME=$MONGO_USERNAME
       - MONGO_PASSWORD=$MONGO_PASSWORD
@@ -15,7 +18,7 @@ services:
 
   db:
     image: mongo:5.0.3
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
